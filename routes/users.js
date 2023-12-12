@@ -20,7 +20,7 @@ const hash = bcrypt.hashSync(req.body.password, 10);
     username: req.body.username,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    birthday: new Date (req.body.date),
+    birthday: new Date(req.body.birthday +" UTC"),
     phone: req.body.number,
     email: req.body.email,
     password: hash,
