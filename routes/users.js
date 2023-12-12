@@ -16,6 +16,8 @@ router.post('/signup', function(req, res, next) {
   
 const hash = bcrypt.hashSync(req.body.password, 10);
 
+console.log(new Date(req.body.birthday +" UTC"))
+
   const newUser = new User({
     username: req.body.username,
     firstname: req.body.firstname,
@@ -35,7 +37,7 @@ const hash = bcrypt.hashSync(req.body.password, 10);
 
 
 //se connecter
-router.get('/signin', function(req, res, next) {
+router.post('/signin', function(req, res, next) {
 
   if (!checkBody(req.body, ['username', 'password'])) {
     res.json({ result: false, error: 'Missing or empty fields' });
