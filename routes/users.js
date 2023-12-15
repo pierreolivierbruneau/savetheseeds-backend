@@ -35,7 +35,7 @@ const hash = bcrypt.hashSync(req.body.password, 10);
 
 
 //se connecter
-router.get('/signin', function(req, res, next) {
+router.post('/signin', function(req, res, next) {
 
   if (!checkBody(req.body, ['username', 'password'])) {
     res.json({ result: false, error: 'Missing or empty fields' });
