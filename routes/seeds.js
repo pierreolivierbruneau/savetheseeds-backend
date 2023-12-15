@@ -45,7 +45,7 @@ router.post('/newseed', function (req, res, next) {
     })
 })
 
-// recupérer le nombre de seed par User
+// recupérer le nombre de seed par User (pages profil )
 
 router.get('/findseeds/:token', function (req, res, next) {
     console.log('token is :',req.params.token)
@@ -69,15 +69,11 @@ router.get('/findseeds/:token', function (req, res, next) {
         
     })
 
-    // Seed.findOne({token: req.params.token}).then(data => {
-       
-    //     console.log(data)
-    //     res.json({ result: true })
-    // })
+
 })
 
 
-// incrément le nombre tot
+// incrément le nombre total de semis sur la page principal
 
 router.get('/allseeds', function (req, res, next) {
 
