@@ -31,7 +31,7 @@ router.post('/newseed', function (req, res, next) {
 
             newSeed.save().then(data => {
                 console.log(data)
-                res.json({ result: true, data })
+                res.json({ result: true, value: data._id })
 
             });
 
@@ -45,16 +45,39 @@ router.post('/newseed', function (req, res, next) {
     })
 })
 
+// recupérer le nombre de seed par User
 
-router.get('/findseeds', function (req, res, next) {
+router.get('/findseeds/:token', function (req, res, next) {
+    console.log('token is :',req.params.token)
 
-    Seed.findOne({ username: req.body.username }).then(data => {
-        res.json({ result: true, value: data.numbersemis })
+    User.findOne({token: req.params.token})
+    .then(data => {
+        console.log(data)
+    Seed.find({user: data.id}).then (data => {
+
+    console.log ('listeseed:', data)
+
+      let seedsum =0
+    for (let i =0; i< data.length; i++) {
+        seedsum += data[i].numbersemis
+        console.log('coucou:',data[i].numbersemis)
+    }
+    console.log('sum is:', seedsum)
+
+    res.json({ result: true, value: seedsum})
     })
+        
+    })
+
+    // Seed.findOne({token: req.params.token}).then(data => {
+       
+    //     console.log(data)
+    //     res.json({ result: true })
+    // })
 })
 
 
-
+// incrément le nombre tot
 
 router.get('/allseeds', function (req, res, next) {
 
@@ -67,7 +90,7 @@ router.get('/allseeds', function (req, res, next) {
             
             sum += data[i].numbersemis
 
-            console.log('good', data[i].numbersemis)
+            
         }
         res.json({ result: true, value: sum})
     })
