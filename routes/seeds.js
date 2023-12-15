@@ -55,13 +55,6 @@ router.get('/findseeds', function (req, res, next) {
 
 
 
-router.get('/findseeds', function (req, res, next) {
-
-    Seed.findOne({ username: req.body.username }).then(data => {
-        res.json({ result: true, value: data.numbersemis })
-    })
-})
-
 
 router.get('/allseeds', function (req, res, next) {
 
