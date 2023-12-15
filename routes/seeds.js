@@ -60,7 +60,7 @@ router.get('/findseeds/:token', function (req, res, next) {
       let seedsum =0
     for (let i =0; i< data.length; i++) {
         seedsum += data[i].numbersemis
-        console.log('coucou:',data[i].numbersemis)
+        
     }
     console.log('sum is:', seedsum)
 
