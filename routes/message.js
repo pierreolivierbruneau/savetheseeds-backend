@@ -11,7 +11,7 @@ router.post("/newmessage", (req, res) => {
     const newMessage = new Message({
       title: req.body.title,
       slug: titleToSlug(req.body.title),
-      date_publish: new Date(dd / mm / yyyy),
+      date_publish: new Date(),
       // add the date_publish (now)
       text: req.body.text,
       author: user._id,
@@ -32,5 +32,16 @@ router.get("/allmessages", function (req, res) {
       res.json({ result: true, message: data });
     });
 });
+
+
+router.get('/getmessage/:slug', (req, res) => {
+  Message.findOne({ slug: req.params.slug })
+  .populate("author")
+  .then((data) => {
+      res.json({ result: true, forum: data })
+  })
+
+})
+
 
 module.exports = router;

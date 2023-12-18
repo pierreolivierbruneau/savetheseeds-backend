@@ -12,7 +12,7 @@ var usersRouter = require('./routes/users');
 var seedsRouter = require('./routes/seeds');
 var messageRouter = require('./routes/message');
 var answerRouter = require('./routes/answers');
-var forumRouter = require('./routes/forums')
+
 
 var app = express();
 
@@ -30,6 +30,6 @@ app.use('/users', usersRouter);
 app.use('/seeds', seedsRouter);
 app.use('/message', messageRouter);
 app.use('/answers', answerRouter);
-app.use('/forums', forumRouter);
+
 
 module.exports = app;
