@@ -11,8 +11,7 @@ router.post("/newmessage", (req, res) => {
     const newMessage = new Message({
       title: req.body.title,
       slug: titleToSlug(req.body.title),
-      date_publish: new Date(dd / mm / yyyy),
-      // add the date_publish (now)
+      date_publish: new Date(getCurrentDateAndTime), //get current date and time from value in DB
       text: req.body.text,
       author: user._id,
       answers: [],
@@ -31,6 +30,17 @@ router.get("/allmessages", function (req, res) {
     .then((data) => {
       res.json({ result: true, message: data });
     });
+});
+
+//filter the msg stored into DB  and use regex to compare the params
+router.get("/filtermessage/:msg", function (req, res) {
+  let regex = new RegExp(req.params.msg, "i");
+
+  Message.find({ $and: [{ $or: [{ title: regex }, { text: regex }] }] }).then(
+    (data) => {
+      res.json({ message: data });
+    }
+  );
 });
 
 module.exports = router;
