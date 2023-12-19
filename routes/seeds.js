@@ -26,7 +26,7 @@ router.post('/newseed', function (req, res, next) {
             const newSeed = new Seed({
                 user: userId,
                 seedname: req.body.seedname,
-                numbersemis: req.body.numbersemis,
+                numbersemis: 1,
             });
 
             newSeed.save().then(data => {
