@@ -7,3 +7,4 @@ mongoose.connect(CONNECTION_STRING, {
 });
 
 const db = mongoose.connection;
+

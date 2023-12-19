@@ -10,6 +10,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var seedsRouter = require("./routes/seeds");
 var messageRouter = require("./routes/message");
+var answerRouter = require("./routes/answers");
 
 var app = express();
 
@@ -26,5 +27,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/seeds", seedsRouter);
 app.use("/message", messageRouter);
+app.use("/answers", answerRouter);
 
 module.exports = app;
