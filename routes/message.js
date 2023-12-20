@@ -7,17 +7,19 @@ const User = require("../models/users");
 const { titleToSlug } = require("../modules/slugGenerator");
 
 router.post("/newmessage", (req, res) => {
+  //posts all new messages(if the user token is made)
   User.findOne({ token: req.body.token }).then((user) => {
     const newMessage = new Message({
       title: req.body.title,
       slug: titleToSlug(req.body.title),
       date_publish: new Date(),
       text: req.body.text,
-      author: user._id,
+      author: user.id,
       answers: [],
     });
 
     newMessage.save().then((data) => {
+      //save the info if the token is there
       console.log(data);
       res.json({ result: true });
     });
