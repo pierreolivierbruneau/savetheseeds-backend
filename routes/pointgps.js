@@ -34,7 +34,7 @@ router.post('/displaypointgps', function (req, res, next) {
 
           const value = data.map(el => {
             return (
-                {latitude:el.latitude, longitude:el.longitude}
+                {lat:el.latitude, lng:el.longitude}
             )
           })
 
