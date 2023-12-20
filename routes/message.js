@@ -47,10 +47,19 @@ router.get("/filtermessage/:msg", function (req, res) {
 
 router.get("/getmessage/:slug", (req, res) => {
   Message.findOne({ slug: req.params.slug })
-    .populate("author")
-    .then((data) => {
-      res.json({ result: true, forum: data });
-    });
-});
+  .populate("author")
+  .populate(
+    {
+      path : 'answers',
+      populate : {
+        path : 'author'
+      }
+    })
+  .then((data) => {
+      res.json({ result: true, forum: data })
+  })
+
+})
+
 
 module.exports = router;
