@@ -13,7 +13,7 @@ router.post("/newmessage", (req, res) => {
       slug: titleToSlug(req.body.title),
       date_publish: new Date(),
       text: req.body.text,
-      author: user._id,
+      author: user.id,
       answers: [],
     });
 
@@ -45,10 +45,19 @@ router.get("/filtermessage/:msg", function (req, res) {
 
 router.get("/getmessage/:slug", (req, res) => {
   Message.findOne({ slug: req.params.slug })
-    .populate("author")
-    .then((data) => {
-      res.json({ result: true, forum: data });
-    });
-});
+  .populate("author")
+  .populate(
+    {
+      path : 'answers',
+      populate : {
+        path : 'author'
+      }
+    })
+  .then((data) => {
+      res.json({ result: true, forum: data })
+  })
+
+})
+
 
 module.exports = router;
