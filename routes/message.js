@@ -11,7 +11,7 @@ router.post("/newmessage", (req, res) => {
     const newMessage = new Message({
       title: req.body.title,
       slug: titleToSlug(req.body.title),
-      date_publish: new Date(getCurrentDateAndTime), //get current date and time from value in DB
+      date_publish: new Date(),
       text: req.body.text,
       author: user._id,
       answers: [],
