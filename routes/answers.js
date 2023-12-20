@@ -5,13 +5,18 @@ const Message = require("../models/message");
 const Answer = require("../models/answers");
 const User = require('../models/users')
 
-router.post('/', (req, res) => {
+router.post('/:slug', (req, res) => {
     User.findOne({token: req.body.token}).then (data => {
+        console.log('data is:', data)
+        console.log('token is:', req.body.token)
         if (data) {
-            
+            console.log('slug is:', req.params.slug)
+
             const userId = data.id;
             
-            Message.findOne({slug: req.body.slug}).then (data => {
+            Message.findOne({slug: req.params.slug}).then (data => {
+
+            
               
                 if(data) {
 
@@ -34,17 +39,17 @@ router.post('/', (req, res) => {
                 }
             })
     } else {
-        res.json({ result: false, error: "User not found" });
+        res.json({ result: false, error: "User not foundddd" });
       }
     })
 });
 
-router.get('/allanswers', (req,res) => {
+router.get(`/allanswers`, (req,res) => {
     Message.find()
     .populate("answers")
     .populate("author")
     .then((data) => {
-        console.log(data[0].answers)
+        console.log(data[0])
         res.json({result: true, answers: data})
     })
 })

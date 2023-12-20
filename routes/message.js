@@ -14,7 +14,7 @@ router.post("/newmessage", (req, res) => {
       date_publish: new Date(),
       // add the date_publish (now)
       text: req.body.text,
-      author: user._id,
+      author: user.id,
       answers: [],
     });
 
@@ -37,6 +37,13 @@ router.get("/allmessages", function (req, res) {
 router.get('/getmessage/:slug', (req, res) => {
   Message.findOne({ slug: req.params.slug })
   .populate("author")
+  .populate(
+    {
+      path : 'answers',
+      populate : {
+        path : 'author'
+      }
+    })
   .then((data) => {
       res.json({ result: true, forum: data })
   })
