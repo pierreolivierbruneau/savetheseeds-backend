@@ -12,7 +12,6 @@ router.post("/newmessage", (req, res) => {
       title: req.body.title,
       slug: titleToSlug(req.body.title),
       date_publish: new Date(),
-      // add the date_publish (now)
       text: req.body.text,
       author: user.id,
       answers: [],
@@ -33,8 +32,18 @@ router.get("/allmessages", function (req, res) {
     });
 });
 
+//filter the msg stored into DB  and use regex to compare the params
+router.get("/filtermessage/:msg", function (req, res) {
+  let regex = new RegExp(req.params.msg, "i");
 
-router.get('/getmessage/:slug', (req, res) => {
+  Message.find({ $and: [{ $or: [{ title: regex }, { text: regex }] }] }).then(
+    (data) => {
+      res.json({ message: data });
+    }
+  );
+});
+
+router.get("/getmessage/:slug", (req, res) => {
   Message.findOne({ slug: req.params.slug })
   .populate("author")
   .populate(
